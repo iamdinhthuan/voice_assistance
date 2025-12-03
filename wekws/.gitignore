@@ -33,7 +33,5 @@ __pycache__/
 
 dict
 
-data
-raw_wav
-tensorboard
-**/*build*
+
+
