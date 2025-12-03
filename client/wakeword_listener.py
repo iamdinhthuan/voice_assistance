@@ -9,16 +9,17 @@ import torchaudio.compliance.kaldi as kaldi
 import yaml
 import os
 
-# Adjust path to ensure wekws can be imported if it's in a sibling directory
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+# Adjust path to ensure wekws can be imported
+# Structure is: project_root/client/wakeword_listener.py
+#               project_root/wekws/wekws/__init__.py
+# We need to add project_root/wekws to sys.path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+wekws_path = os.path.join(project_root, 'wekws')
+if wekws_path not in sys.path:
+    sys.path.append(wekws_path)
 
-try:
-    from wekws.model.kws_model import init_model
-    from wekws.utils.checkpoint import load_checkpoint
-except ImportError:
-    print("Error: Could not import wekws. Make sure you are running from the project root or wekws is installed.")
-    # Fallback or exit?
-    pass
+from wekws.model.kws_model import init_model
+from wekws.utils.checkpoint import load_checkpoint
 
 class WakewordListener:
     def __init__(self, checkpoint_path, config_path, threshold=0.7, buffer_sec=2.0, chunk_sec=0.5, device_index=None):
