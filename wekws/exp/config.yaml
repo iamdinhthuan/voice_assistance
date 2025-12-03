@@ -1,0 +1,52 @@
+dataset_conf:
+  batch_conf:
+    batch_size: 128
+  fbank_conf:
+    dither: 1.0
+    frame_length: 25
+    frame_shift: 10
+    num_mel_bins: 40
+  feats_type: fbank
+  filter_conf:
+    max_length: 2048
+    max_output_input_ratio: 1
+    min_length: 0
+    min_output_input_ratio: 0.0005
+    token_max_length: 200
+    token_min_length: 1
+  noise_prob: 0.3
+  resample_conf:
+    resample_rate: 16000
+  reverb_prob: 0.0
+  shuffle: true
+  shuffle_conf:
+    shuffle_size: 1500
+  sort: false
+  spec_aug: true
+  spec_aug_conf:
+    max_f: 10
+    max_t: 20
+    num_f_mask: 1
+    num_t_mask: 1
+  speed_perturb: true
+model:
+  backbone:
+    causal: true
+    hidden_dim: 64
+    kernel_size: 5
+    num_stack: 3
+    stack_size: 4
+    type: mdtc
+  hidden_dim: 64
+  input_dim: 40
+  output_dim: 1
+  preprocessing:
+    type: linear
+optim: adam
+optim_conf:
+  lr: 0.001
+  weight_decay: 0.0001
+training_config:
+  grad_clip: 5
+  log_interval: 10
+  max_epoch: 20

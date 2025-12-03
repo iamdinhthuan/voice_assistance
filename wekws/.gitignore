@@ -32,7 +32,7 @@ __pycache__/
 .DS_Store
 
 dict
-exp
+
 data
 raw_wav
 tensorboard
