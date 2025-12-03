@@ -38,6 +38,19 @@ class WakewordListener:
     def _load_kws_model(self):
         with open(self.config_path, "r") as fin:
             configs = yaml.load(fin, Loader=yaml.FullLoader)
+        
+        # Fix CMVN path to be absolute relative to wekws root
+        if "model" in configs and "cmvn" in configs["model"] and "cmvn_file" in configs["model"]["cmvn"]:
+            cmvn_file = configs["model"]["cmvn"]["cmvn_file"]
+            if not os.path.isabs(cmvn_file):
+                # Assuming cmvn_file is relative to wekws root
+                # wekws_path is defined globally above
+                abs_cmvn_path = os.path.join(wekws_path, cmvn_file)
+                if os.path.exists(abs_cmvn_path):
+                    configs["model"]["cmvn"]["cmvn_file"] = abs_cmvn_path
+                else:
+                    print(f"Warning: CMVN file not found at {abs_cmvn_path}")
+
         model = init_model(configs["model"])
         load_checkpoint(model, self.checkpoint_path)
         model = model.to(self.device)
