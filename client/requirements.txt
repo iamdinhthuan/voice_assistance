@@ -1,4 +1,3 @@
-wekws
 pyaudio
 websockets
 numpy

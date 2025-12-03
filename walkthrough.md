@@ -26,11 +26,28 @@
         This will download `kokoro-v0_19.onnx`, `voices.json`, and create `server/voices.bin.npz`.
 
 2.  **Client Setup (Raspberry Pi):**
-    ```bash
-    cd client
-    pip install -r requirements.txt
-    ```
-    *   Ensure `wekws` is accessible. You might need to set `PYTHONPATH`.
+    *   **Install System Dependencies:**
+        ```bash
+        sudo apt-get update
+        sudo apt-get install espeak-ng portaudio19-dev python3-pyaudio python3-full
+        ```
+    *   **Create and Activate Virtual Environment (Recommended):**
+        Raspberry Pi OS Bookworm requires a virtual environment for pip.
+        ```bash
+        python3 -m venv venv
+        source venv/bin/activate
+        ```
+    *   **Install Python Requirements:**
+        ```bash
+        cd client
+        pip install -r requirements.txt
+        ```
+    *   **Set PYTHONPATH (Important):**
+        Since `wekws` is included in this repository, you need to tell Python where to find it.
+        ```bash
+        export PYTHONPATH=$PYTHONPATH:$(pwd)/../wekws
+        ```
+        *(Run this from the `client` directory, or adjust path accordingly)*
 
 ## Running the System
 
@@ -62,3 +79,17 @@
 *   **Audio Issues:** Check `sounddevice` settings and default devices.
 *   **Connection Refused:** Check firewall settings and IP address.
 *   **Missing Models:** Ensure `wekws` checkpoint and `kokoro` ONNX files are in the correct paths.
+*   **"Unable to locate package" Error:**
+    *   Run `sudo apt-get update --fix-missing`.
+    *   Try searching for the package: `apt-cache search espeak`.
+*   **"Unable to locate package" Error (Advanced Fix):**
+    If the above doesn't work, your package lists might be corrupted. Try this "nuclear" option:
+    ```bash
+    sudo rm -rf /var/lib/apt/lists/*
+    sudo apt-get clean
+    sudo apt-get update
+    ```
+    Then try installing again:
+    ```bash
+    sudo apt-get install libportaudio2
+    ```
