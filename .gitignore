@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+venv/
+.env
+.DS_Store
+# Large model files
+server/kokoro-v0_19.onnx
+server/voices.json
+server/voices.bin.npz
+# Generated files
+test_tts_output.wav
+debug_output.txt
+test_output.txt
+kokoro_debug/

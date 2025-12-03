@@ -1,0 +1,4 @@
+wekws
+pyaudio
+websockets
+numpy

@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+websockets
+python-dotenv
+groq
+kokoro-onnx
+soundfile
+numpy
+torch
+scipy
