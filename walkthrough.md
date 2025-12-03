@@ -61,8 +61,9 @@
 2.  **Start the Client:**
     ```bash
     # From project root
-    python -m client.main --server_uri ws://<SERVER_IP>:8000/ws --checkpoint .\exp\wake_mdtc_noaug_avg\2.pt --config .\exp\wake_mdtc_noaug_avg\config.yaml
+    python -m client.main --server_uri ws://<SERVER_IP>:8000/ws --checkpoint wekws/exp/wake_mdtc_noaug_avg/2.pt --config wekws/exp/wake_mdtc_noaug_avg/config.yaml
     ```
+    *   **Note:** Use forward slashes `/` for paths on Linux/Raspberry Pi.
     *   Replace `<SERVER_IP>` with the IP address of your server.
     *   Adjust checkpoint/config paths if necessary.
 
@@ -91,5 +92,11 @@
     ```
     Then try installing again:
     ```bash
-    sudo apt-get install libportaudio2
+    sudo apt-get install portaudio19-dev python3-pyaudio
+    ```
+
+*   **"fatal error: portaudio.h: No such file or directory":**
+    This means the development headers are missing. You MUST install `portaudio19-dev`:
+    ```bash
+    sudo apt-get install portaudio19-dev
     ```
